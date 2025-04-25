@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playwrite+RO:wght@100..400&family=Sofia+Sans+Extra+Condensed:ital,wght@0,1..1000;1,1..1000&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playwrite+RO:wght@100..400&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playwrite+RO:wght@100..400&family=Sofia+Sans+Extra+Condensed:ital,wght@0,1..1000;1,1..1000&display=swap" rel="stylesheet">
+
+    <meta charset="UTF-8" />
+    <title>Swipe to Unlock</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            /* Путь к вашей гифке */
+            background: url(Emirrim.gif) center/cover no-repeat fixed;
+            min-height: 100vh;
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+            padding: 20px;
+            color: white;
+            background: rgba(0, 0, 0, 0.7); /* Затемнение для текста */
+        }
+
+      .slider {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: sans-serif;
+      }
+
+      .swiper-container {
+        margin-top: 1200px;
+        position: absolute;
+        width: 700px;
+        height: 100px;
+        background: #00000000;
+        border-radius: 60px;
+        overflow: hidden;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.452);
+      }
+
+      .dashed-line {
+        position: absolute;
+        top: 50%;
+        left: 10px;
+        right: 10px;
+        height: 4px;
+        transform: translateY(-50%);
+        display: flex;
+        justify-content: space-between;
+        pointer-events: none;
+      }
+
+      .dashed-line div {
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: #ffffff;
+      }
+
+      .swiper-text {
+        margin-top: 500px;
+        font-size: 100px;
+        text-align: center;
+        line-height: 60px;
+        color: #ffffff;
+        pointer-events: none;
+      }
+
+      .swiper-button {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100px;
+        width: 100px;
+        background: #ffffff;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 60px;
+        color: rgb(0, 0, 0);
+        font-weight: bold;
+        cursor: pointer;
+        user-select: none;
+        z-index: 2;
+        transition: background 0.3s;
+      }
+
+      .txt-eb {
+        font-size: 45px;
+        margin: 0;
+        padding: 0;
+        margin-top: 23px;
+      }
+
+      .text-wedding {
+        font-size: 50px;
+        color: #ffffff;
+        position: absolute;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+        margin-top: 800px;
+        margin-left: 50px;
+        font-family: "Great Vibes", cursive;
+        font-optical-sizing: auto;
+        font-style: normal;
+        
+      }
+
+      .txt-slider-wedding {
+        color: #ffffff;
+        font-size: 70px;
+        position: absolute;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+        margin-top: 1300px;
+        margin-left: 400px;
+        font-family: "Sofia Sans Extra Condensed", sans-serif;
+        font-optical-sizing: auto;
+        font-style: normal;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div class="text-wedding">
+      <h1>Никях акъшамына даветнаме</h1>
+      <h1>Эмир ве Ление</h1>
+    </div>
+        <div class="slider">
+          
+            <div class="swiper-container" id="swiperContainer">
+            <div class="dashed-line">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div class="swiper-button" id="swiperBtn">
+              <p class="txt-eb">></p>
+            </div>
+            </div>
+        </div>
+    <script>
+      const button = document.getElementById("swiperBtn");
+      const container = document.getElementById("swiperContainer");
+
+      let isDragging = false;
+      let startX = 0;
+      let currentX = 0;
+
+      // Utility: set button position within bounds
+      function setButtonPosition(x) {
+        if (x < 0) x = 0;
+        const maxX = container.offsetWidth - button.offsetWidth;
+        if (x > maxX) x = maxX;
+        button.style.left = x + "px";
+        currentX = x;
+      }
+
+      function endSwipe() {
+        const maxX = container.offsetWidth - button.offsetWidth;
+        if (currentX >= maxX - 10) {
+          window.location.href = "./Свадьба эмира/index.html";
+        } else {
+          setButtonPosition(0);
+        }
+      }
+
+      // Mouse Events
+      button.addEventListener("mousedown", (e) => {
+        isDragging = true;
+        startX = e.clientX;
+      });
+
+      document.addEventListener("mousemove", (e) => {
+        if (!isDragging) return;
+        const deltaX = e.clientX - startX;
+        setButtonPosition(deltaX);
+      });
+
+      document.addEventListener("mouseup", () => {
+        if (!isDragging) return;
+        isDragging = false;
+        endSwipe();
+      });
+
+      // Touch Events for mobile
+      button.addEventListener("touchstart", (e) => {
+        isDragging = true;
+        startX = e.touches[0].clientX;
+      });
+
+      document.addEventListener("touchmove", (e) => {
+        if (!isDragging) return;
+        const deltaX = e.touches[0].clientX - startX;
+        setButtonPosition(deltaX);
+      });
+
+      document.addEventListener("touchend", () => {
+        if (!isDragging) return;
+        isDragging = false;
+        endSwipe();
+      });
+    </script>
+  </body>
+</html>

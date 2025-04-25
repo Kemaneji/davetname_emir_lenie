@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Приглашение на свадьбу</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playwrite+RO:wght@100..400&family=Sofia+Sans+Extra+Condensed:ital,wght@0,1..1000;1,1..1000&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <!-- Главная секция -->
+    <section class="visible">
+        <div class="header-container">
+            <div class="date-column">25 05 2025
+              <div class="vertical-line">
+                <div class="save-the-date-label">НИКЯХ АКЪШАМЫ</div>
+                
+              </div>
+              
+            </div>
+            
+            
+            <div class="center-content">
+                <div class="names"><br>ЭМИР <br>& <br>ЛЕНИЕ</div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Приглашение -->
+    <section class="background-black color-white">
+        <h2 class="color-white">Урьметли догъмушларымыз, дост- акъраба!</h2>
+        <div class="invitation-text">
+          Сизни той акъшамына давет этемиз - чунки бу бизим эн муим куню!
+        </div>
+        <div style="font-size: 2.5rem; margin: 2rem 0;">25.05.2025</div>
+        <p>Бизге къошулып олсанъыз, пек мемнюн олур эдик!</p>
+        <p style="margin-top: 2rem;">Динара ве Нариман</p>
+    </section>
+
+    <!-- Детали мероприятия -->
+    <section>
+      
+        <div class="names-container"> 
+            <!-- Вставьте свою фотографию вместо photo.jpg -->
+            <div class="photo-container">
+                <img src="img/hat.JPG" alt="Фото" class="photo">
+            </div>
+        </div>
+
+        <h2>Чаренинъ тафселяты</h2>
+        <div class="timeline">
+
+        </div>
+        <div class="countdown-container">
+          <div class="countdown-item">
+              <div class="number" id="days">00</div>
+              <div class="label">Кунь</div>
+          </div>
+          <div class="countdown-separator">:</div>
+          <div class="countdown-item">
+              <div class="number" id="hours">00</div>
+              <div class="label">Саат</div>
+          </div>
+          <div class="countdown-separator">:</div>
+          <div class="countdown-item">
+              <div class="number" id="minutes">00</div>
+              <div class="label">Дакъкъа</div>
+          </div>
+          <div class="countdown-separator">:</div>
+          <div class="countdown-item">
+              <div class="number" id="seconds">00</div>
+              <div class="label">Сание</div>
+          </div>
+      </div>
+        <div style="margin: 2rem 0;">
+            <section id="map-section">
+              <h2>Той акъшамы</h2>
+              <div id="wedding-map"></div>
+              <p>Бу къуванчлы кунню биз иле берабер Симферополь ш., Гренажный аралыгъы,11- </p>
+              <p>де ерлешкен "МАРХАЛ" салонында кечирмеге давет этемиз.</p>
+            </section>
+        </div>
+    </section>
+
+    <!-- RSVP Форма -->
+    <div class="rsvp-form">
+        <h2>Бу акъта эвельден хабер этменъизни риджа этемиз</h2>
+        <form id="weddingForm">
+            <div class="form-group">
+                <label>Сизинъ Адынъ ве Сойадынъ</label>
+                <input type="text" name="name" required>
+            </div>
+    
+            <div class="form-group">
+                <label> Оладжасыз мы?</label>
+                <select name="status" required>
+                    <option value="Да">Эльбет, мутлакъкъа келеджемиз</option>
+                    <option value="Нет">Багъышланъыз, келип оламамыз</option>
+                </select>
+            </div>
+    
+            <div class="form-group">
+                <label>Контакт мелюматлары</label>
+                <input type="text" name="contact" placeholder="номер телефона">
+            </div>
+    
+            <button type="submit" class="submit-btn">Ёлламакъ</button>
+        </form>
+    </div>
+
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=bd61ed5e-2dc3-4926-b258-e2f4d9939852&lang=ru_RU"></script>
+
+    <script src="js/script.js"></script>
+
+    <script>
+        document.getElementById('weddingForm').addEventListener('submit', async (e) => {
+          e.preventDefault();
+          
+          try {
+            const formData = new FormData(e.target);
+            
+            // Получаем IP через API и добавляем в данные формы
+            const ipResponse = await fetch('https://api.ipify.org?format=json');
+            const { ip } = await ipResponse.json();
+            formData.append('remote_ip', ip);
+        
+            const response = await fetch("https://script.google.com/macros/s/AKfycbzKg5JHLAik73trLhiFzCqHMJgrfFMvEMpQ_nr4pUi6_v-h6GWrzMCL6vi8xJEo-IO1/exec", {
+              method: 'POST',
+              body: new URLSearchParams(formData),
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+              }
+            });
+        
+            const result = await response.json();
+            
+            if (result.success) {
+              alert('Данные сохранены!');
+              e.target.reset();
+            } else {
+              throw new Error(result.error);
+            }
+        
+          } catch (error) {
+            console.error('Ошибка:', error);
+            alert('Ошибка: ' + error.message);
+          }
+        });
+        </script>
+</body>
+</html>

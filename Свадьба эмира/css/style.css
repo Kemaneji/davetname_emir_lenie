@@ -1,0 +1,378 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Playfair Display', serif;
+}
+
+body {
+    background: #fff;
+    color: #000;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Новая структура заголовка */
+.color-white {
+  color: white;
+}
+.background-black {
+  background-color: #0a0804;
+}
+
+.header-container {
+    display: grid;
+    grid-template-columns: auto 1px 1fr;
+    min-height: 100vh;
+    padding: 2rem;
+    position: relative;
+}
+
+.date-column {
+    writing-mode: vertical-lr;
+    transform: rotate(360deg);
+    font-size: 4rem;
+    align-self: center;
+    letter-spacing: 1px;
+    padding-right: 3rem;
+}
+
+.vertical-line {
+    width: 1px;
+    background: #000;
+    align-self: center;
+    height: 100%;
+    margin-top: 60px;
+}
+
+.center-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+}
+
+.save-the-date-label {
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+    font-size: 1.5rem;
+    letter-spacing: 5px;
+}
+
+.names {
+    font-size: 3.5rem;
+    letter-spacing: 8px;
+    margin: 2rem 0;
+}
+
+/* Общие стили секций */
+section {
+    padding: 4rem 2rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: 1s all ease-in-out;
+    border-bottom: 1px solid #000;
+}
+
+section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Секция приглашения */
+.invitation-text {
+    max-width: 600px;
+    margin: 2rem auto;
+    font-size: 1.2rem;
+}
+
+/* Таймлайн */
+.timeline {
+    display: grid;
+    gap: 2rem;
+    margin: 3rem 0;
+    position: relative;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    width: 1px;
+    height: 100%;
+    background: #000;
+}
+
+.timeline-item {
+    font-size: 1.2rem;
+    letter-spacing: 3px;
+    padding: 1rem;
+    position: relative;
+    width: 50%;
+}
+
+.timeline-item:nth-child(odd) {
+    margin-left: auto;
+    text-align: right;
+}
+
+.timeline-item:nth-child(even) {
+    margin-right: auto;
+    text-align: left;
+}
+
+/* Форма RSVP */
+.rsvp-form {
+    max-width: 500px;
+    width: 100%;
+    margin: 2rem auto;
+    padding: 2rem;
+    border: 1px solid #000;
+}
+
+.form-group {
+    margin: 1.5rem 0;
+    text-align: left;
+}
+
+input, select {
+    width: 100%;
+    padding: 0.8rem;
+    margin-top: 0.5rem;
+    border: 1px solid #000;
+    background: #fff;
+    color: #000;
+}
+
+.submit-btn {
+    background: #000;
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.countdown-container {
+display: flex;
+justify-content: center;
+align-items: center;
+gap: 20px;
+padding: 30px;
+background: rgba(0, 0, 0, 0.8);
+border-radius: 15px;
+box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.countdown-item {
+text-align: center;
+perspective: 500px;
+}
+
+.number {
+font-size: 3.5em;
+font-weight: 700;
+color: #fff;
+background: #222;
+padding: 15px 25px;
+border-radius: 10px;
+margin: 10px;
+min-width: 120px;
+transform-style: preserve-3d;
+transition: all 0.3s ease;
+}
+
+.label {
+font-size: 1.2em;
+color: #fff;
+text-transform: uppercase;
+letter-spacing: 2px;
+}
+
+.countdown-separator {
+font-size: 3em;
+color: #fff;
+margin-top: -20px;
+animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+0% { opacity: 1; }
+50% { opacity: 0.3; }
+100% { opacity: 1; }
+}
+
+@media (max-width: 768px) {
+.countdown-container {
+flex-wrap: wrap;
+gap: 10px;
+}
+.number {
+font-size: 2em;
+min-width: 80px;
+padding: 10px 15px;
+}
+.countdown-separator {
+display: none;
+}
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    
+    .header-container {
+        grid-template-columns: 1fr;
+        
+    }
+    date-column {
+        writing-mode: horizontal-tb;
+        transform: none;
+        padding-right: 0;
+        text-align: center;
+        font-size: 2.5rem;
+    }
+
+    .vertical-line {
+        margin: 0px;
+        width: 1px;
+        height: 100%;
+        margin-top: 60px;
+    }
+
+    .save-the-date-label {
+        position: static;
+        text-align: center;
+        margin-top: 2rem;
+    }
+
+    .names {
+        font-size: 2rem;
+    }
+
+    .timeline-item {
+        width: 100%;
+        text-align: center !important;
+    }
+
+    .timeline::before {
+        display: none;
+    }
+}
+
+/* CSS карта */
+#map-section {
+  padding: 4rem 2rem;
+  min-height: 600px;
+}
+
+#wedding-map {
+  height: 500px;
+  width: 100%;
+  max-width: 1000px;
+  margin: 2rem auto;
+  border: 2px solid #000;
+  border-radius: 10px;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: 1s all ease-in-out;
+}
+
+#wedding-map.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.gm-style iframe {
+  border-radius: 8px;
+}
+
+@media (max-width: 768px) {
+  #wedding-map {
+      height: 300px;
+  }
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    background: #f0f0f0;
+    padding: 20px;
+}
+
+.names-container {
+    text-align: center;
+    margin: 20px 0;
+    perspective: 1000px;
+}
+
+.name {
+    font-family: "Sofia Sans Extra Condensed", sans-serif;
+    font-size: 2.5em;
+    color: #333;
+    margin: 10px 0;
+}
+
+.photo-container {
+    position: relative;
+    overflow: hidden;
+    max-width: 400px;
+    width: 100%;
+    border-radius: 10px;
+    transform-origin: top center;
+    opacity: 0;
+    animation: fanAnimation 1.2s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+}
+
+.photo {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+@keyframes fanAnimation {
+    0% {
+        opacity: 0;
+        transform: 
+            rotateX(-90deg) 
+            rotateZ(-30deg) 
+            scale(0.2);
+    }
+    50% {
+        opacity: 0.8;
+        transform: 
+            rotateX(20deg) 
+            rotateZ(15deg) 
+            scale(1.1);
+    }
+    100% {
+        opacity: 1;
+        transform: 
+            rotateX(0deg) 
+            rotateZ(0deg) 
+            scale(1);
+    }
+}
+
+.names-container::before,
+.names-container::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 2px;
+    background: #666;
+    margin: 20px auto;
+}
