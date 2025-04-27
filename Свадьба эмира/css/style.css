@@ -6,7 +6,7 @@
 }
 
 body {
-    background: #fff;
+    background: linear-gradient(rgb(255, 255, 255), rgb(75, 75, 75), rgb(112, 112, 112), rgb(94, 94, 94), rgb(255, 255, 255));
     color: #000;
     line-height: 1.6;
     overflow-x: hidden;
