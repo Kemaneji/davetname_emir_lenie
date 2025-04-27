@@ -6,7 +6,7 @@
 }
 
 body {
-    background: linear-gradient(rgb(255, 255, 255), rgb(75, 75, 75), rgb(112, 112, 112), rgb(94, 94, 94), rgb(255, 255, 255));
+    background: #fff;
     color: #000;
     line-height: 1.6;
     overflow-x: hidden;
@@ -17,7 +17,7 @@ body {
   color: white;
 }
 .background-black {
-  background-color: #0a0804;
+  background-color: #9b9b9b;
 }
 
 .header-container {
@@ -172,7 +172,7 @@ justify-content: center;
 align-items: center;
 gap: 20px;
 padding: 30px;
-background: rgba(0, 0, 0, 0.8);
+background: #9b9b9b;
 border-radius: 15px;
 box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
 }
@@ -186,9 +186,9 @@ perspective: 500px;
 font-size: 3.5em;
 font-weight: 700;
 color: #fff;
-background: #222;
+background: #666666;
 padding: 15px 25px;
-border-radius: 10px;
+border-radius: 6px;
 margin: 10px;
 min-width: 120px;
 transform-style: preserve-3d;
