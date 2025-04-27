@@ -28,13 +28,16 @@ body {
     position: relative;
 }
 
+.achaham {
+    align-self: left !important;
+}
+
 .date-column {
-    writing-mode: vertical-lr;
-    transform: rotate(360deg);
-    font-size: 4rem;
+    
+    font-size: 2rem;
     align-self: center;
     letter-spacing: 1px;
-    padding-right: 3rem;
+    padding-right: 5rem;
 }
 
 .vertical-line {
@@ -58,8 +61,9 @@ body {
     position: absolute;
     bottom: 2rem;
     right: 2rem;
-    font-size: 1.5rem;
+    font-size: 3rem;
     letter-spacing: 5px;
+    margin-left: 40px;
 }
 
 .names {
