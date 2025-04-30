@@ -12,37 +12,15 @@
 
 </head>
 <body>
-    <audio id="player" autoplay muted loop style="display: none;">
-      <source src="music.m4a" type="audio/mpeg">
-      <source src="music.m4a" type="audio/ogg">
+    
+    <audio autoplay loop>
+    <source src="music.mp3" type="audio/mpeg">
+    <source src="music.ogg" type="audio/ogg">
     </audio>
 
-  <script>
-      document.addEventListener('DOMContentLoaded', function() {
-          const audio = document.getElementById('player');
-          
-          // Первая попытка воспроизведения
-          const playAudio = () => {
-              audio.play()
-                  .then(() => {
-                      audio.muted = false; // Пытаемся включить звук
-                  })
-                  .catch(e => {
-                      // Перехват ошибки и повторная попытка
-                      setTimeout(() => audio.play(), 1000);
-                  });
-          };
+    
 
-          // Автозапуск при загрузке
-          audio.muted = true; // Начинаем с выключенным звуком
-          playAudio();
-          
-          // Периодическая проверка статуса
-          setInterval(() => {
-              if(audio.paused) audio.play();
-          }, 3000);
-      });
-  </script>
+
     
     <!-- Главная секция -->
     <section class="visible">
