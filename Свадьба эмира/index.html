@@ -13,10 +13,93 @@
 </head>
 <body>
     
-    <audio autoplay loop>
+<!-- Прелоадер с кнопкой активации -->
+  <div id="loader" >
+    <button class="play-button"  id="initButton"></button>
+</div>
+
+<!-- Скрытый аудио элемент -->
+<audio id="audioPlayer" loop>
     <source src="music.mp3" type="audio/mpeg">
-    <source src="music.ogg" type="audio/ogg">
-    </audio>
+    Ваш браузер не поддерживает аудио элемент.
+</audio>
+
+<script>
+    // Инициализация аудио контекста
+    let audioContext = null;
+    let audioElement = document.getElementById('audioPlayer');
+    let isPlaying = false;
+
+    // Функция инициализации аудио
+    async function initializeAudio() {
+        try {
+            // Создаем аудио контекст после пользовательского взаимодействия
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            
+            // Создаем ноду для управления звуком
+            const source = audioContext.createMediaElementSource(audioElement);
+            source.connect(audioContext.destination);
+
+            // Пытаемся запустить воспроизведение
+            await audioElement.play();
+            isPlaying = true;
+            hideLoader();
+        } catch (error) {
+            console.error('Ошибка инициализации аудио:', error);
+            showError('Для воспроизведения требуется взаимодействие');
+        }
+    }
+
+    // Обработчик первого клика по странице
+    function handleFirstInteraction() {
+        document.body.addEventListener('click', async () => {
+            if (!isPlaying && audioContext) {
+                try {
+                    if (audioContext.state === 'suspended') {
+                        await audioContext.resume();
+                    }
+                    await audioElement.play();
+                    isPlaying = true;
+                    hideLoader();
+                } catch (error) {
+                    console.error('Ошибка воспроизведения:', error);
+                }
+            }
+        }, { once: true });
+    }
+
+    // Скрытие прелоадера
+    function hideLoader() {
+        document.getElementById('loader').style.display = 'none';
+    }
+
+    // Показать ошибку
+    function showError(message) {
+        const loader = document.getElementById('loader');
+        loader.innerHTML = `<p style="color: red">${message}</p>`;
+    }
+
+    // Инициализация при клике на кнопку
+    document.getElementById('initButton').addEventListener('click', async () => {
+        await initializeAudio();
+        handleFirstInteraction();
+    });
+
+    // Автозапуск при загрузке (для поддерживающих браузеров)
+    window.addEventListener('load', async () => {
+        try {
+            // Предзагрузка аудио
+            audioElement.load();
+            
+            // Попытка автоматического запуска
+            await audioElement.play();
+            isPlaying = true;
+            hideLoader();
+        } catch (error) {
+            console.log('Автовоспроизведение заблокировано, требуется взаимодействие');
+        }
+    });
+</script>
 
     
 
@@ -98,29 +181,37 @@
 
     <!-- RSVP Форма -->
     <div class="rsvp-form">
-        <h2></h2>
-        <form id="weddingForm">
-            <div class="form-group">
-                <label>Сизинъ Адынъ ве Сойадынъ</label>
-                <input type="text" name="name" required>
-            </div>
-    
-            <div class="form-group">
-                <label> Оладжасыз мы?</label>
-                <select name="status" required>
-                    <option value="Да">Келеджемиз</option>
-                    <option value="Нет">Келип оламамыз</option>
-                </select>
-            </div>
-    
-            <div class="form-group">
-                <label>Къач адам оладжак?</label>
-                <input type="text" name="contact" placeholder="Сайы">
-            </div>
-    
-            <button type="submit" class="submit-btn">Ёлламакъ</button>
-        </form>
-    </div>
+      <h2></h2>
+      <form id="weddingForm">
+          <div class="form-group">
+              <label>Сизинъ Адынъыз ве Сойадынъыз</label>
+              <input type="text" name="name" required>
+          </div>
+  
+          <div class="form-group">
+              <label>Оладжасыз мы?</label>
+              <div class="radio-group">
+                  <label class="radio-option">
+                      <input type="radio" name="status" value="Да" required>
+                      <span class="radio-checkmark"></span>
+                      Эльбет, мутлакъкъа келеджемиз
+                  </label>
+                  <label class="radio-option">
+                      <input type="radio" name="status" value="Нет">
+                      <span class="radio-checkmark"></span>
+                      Багъышланъыз, келип оламамыз
+                  </label>
+              </div>
+          </div>
+  
+          <div class="form-group">
+              <label>Къач адам оладжак?</label>
+              <input type="text" name="contact" placeholder="номер телефона">
+          </div>
+  
+          <button type="submit" class="submit-btn">Ёлламакъ</button>
+      </form>
+  </div>
 
     <script src="https://api-maps.yandex.ru/2.1/?apikey=bd61ed5e-2dc3-4926-b258-e2f4d9939852&lang=ru_RU"></script>
 
