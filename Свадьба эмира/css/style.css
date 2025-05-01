@@ -477,3 +477,8 @@ display: none;
         .radio-option input:checked ~ .radio-checkmark:after {
             display: block;
         }
+
+.map-text {
+            font-size: 16px;
+            font-family: 'Courier New', Courier, monospace;
+        }
